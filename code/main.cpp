@@ -41,39 +41,6 @@ vector<int> readFile(const string& filename) {
     return data;
 }
 
-// Alternative method using string tokenization:
-vector<int> readFileAlternative(const string& filename) {
-    vector<int> data;
-    ifstream infile(filename);
-    
-    if (!infile.is_open()) {
-        cout << "Error: Could not open file " << filename << endl;
-        return data;
-    }
-    
-    string line;
-    while (getline(infile, line)) {
-        if (line.empty()) continue;
-        
-        stringstream ss(line);
-        string token;
-        
-        while (getline(ss, token, ',')) {
-            if (!token.empty()) {
-                try {
-                    long long value = stoll(token);
-                    data.push_back(static_cast<int>(value % INT_MAX));
-                } catch (const exception& e) {
-                    cout << "Warning: Could not parse value: " << token << endl;
-                }
-            }
-        }
-    }
-    
-    cout << "Loaded " << data.size() << " items from " << filename << endl;
-    return data;
-}
-
 int main() {
     cout << "Tree Performance Analysis" << endl;
     cout << "=========================" << endl;
